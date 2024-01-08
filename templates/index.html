@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Diabetes Prediction</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-column">
+        <h2>Enter Patient Data for Diabetes Prediction</h2>
+        <div class="input-number">
+          <form id="predictionForm">
+            <label for="pregnancies">Pregnancies:</label><br />
+            <input
+              type="number"
+              id="pregnancies"
+              name="pregnancies"
+              required
+            /><br />
+
+            <label for="glucose">Glucose:</label><br />
+            <input type="number" id="glucose" name="glucose" required /><br />
+
+            <label for="bloodPressure">Blood Pressure:</label><br />
+            <input
+              type="number"
+              id="bloodPressure"
+              name="bloodPressure"
+              required
+            /><br />
+
+            <label for="skinThickness">Skin Thickness:</label><br />
+            <input
+              type="number"
+              id="skinThickness"
+              name="skinThickness"
+              required
+            /><br />
+
+            <label for="insulin">Insulin:</label><br />
+            <input type="number" id="insulin" name="insulin" required /><br />
+
+            <label for="bmi">BMI:</label><br />
+            <input
+              type="number"
+              id="bmi"
+              name="bmi"
+              step="any"
+              required
+            /><br />
+
+            <label for="diabetesPedigreeFunction"
+              >Diabetes Pedigree Function:</label
+            ><br />
+            <input
+              type="number"
+              id="diabetesPedigreeFunction"
+              name="diabetesPedigreeFunction"
+              step="any"
+              required
+            /><br />
+
+            <label for="age">Age:</label><br />
+            <input type="number" id="age" name="age" required /><br />
+
+            <input type="submit" value="Predict" />
+          </form>
+        </div>
+        <h2>Or Import Data from CSV File</h2>
+        <div class="csv-import">
+          <form id="csvUploadForm">
+            <input type="file" name="file" accept=".csv" />
+            <input type="button" value="Upload and Predict" id="uploadButton" />
+          </form>
+        </div>
+      </div>
+      <div class="right-column">
+        <div id="predictionResult"></div>
+        <div id="CSVpredictionResult"></div>
+        <button id="copyButton" style="display: none">Copy</button>
+      </div>
+    </div>
+    <script>
+      document.getElementById("predictionForm").onsubmit = function (e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Gathering form data
+        var formData = new FormData(document.getElementById("predictionForm"));
+
+        // AJAX request to the Flask server
+        fetch("/predict", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Prepare the message
+            var message;
+            var link;
+            if (data.prediction === 1) {
+              message =
+                "<h2>Your health is not good right now. You may have diabetes</h2>" +
+                "<p>Please follow these:</p>";
+              link = "https://tamanhhospital.vn/cach-phong-benh-tieu-duong/";
+            } else {
+              message =
+                "<h2>Your health is very good. Let's improve your health</h2>" +
+                "<p>Maybe you have diabetes. Please follow these:</p>";
+              link =
+                "https://suckhoedoisong.vn/cai-thien-suc-khoe-tu-nhung-thoi-quen-hang-ngay-169195226.htm";
+            }
+            // Append iframe to the message
+            var iframeHtml =
+              "<iframe src='" +
+              link +
+              "' width='100%' height='800px'></iframe>";
+            message += iframeHtml;
+
+            // Displaying the result
+            document.getElementById("predictionResult").innerHTML = message;
+          })
+          .catch((error) => console.error("Error:", error));
+      };
+      document.getElementById("uploadButton").onclick = function () {
+        var formData = new FormData(document.getElementById("csvUploadForm"));
+
+        // AJAX request to the Flask server
+        fetch("/predict_csv", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) {
+              document.getElementById("CSVpredictionResult").innerText =
+                "Error: " + data.error;
+            } else {
+              var flattenedPredictions = data.predictions.reduce(function (
+                acc,
+                val
+              ) {
+                return acc.concat(val);
+              },
+              []);
+              var formattedText = flattenedPredictions.join("\n"); // Use tab as separator
+
+              document.getElementById("copyButton").style.display = "block";
+              document
+                .getElementById("copyButton")
+                .addEventListener("click", function () {
+                  navigator.clipboard.writeText(formattedText).then(
+                    function () {
+                      console.log("Copying to clipboard was successful!");
+                    },
+                    function (err) {
+                      console.error("Could not copy text: ", err);
+                    }
+                  );
+                });
+              document.getElementById("CSVpredictionResult").innerHTML =
+                "Predictions: <br>" + JSON.stringify(data.predictions);
+            }
+          })
+          .catch((error) => {
+            document.getElementById("CSVpredictionResult").innerText =
+              "Error: " + error;
+          });
+      };
+    </script>
+  </body>
+</html>
