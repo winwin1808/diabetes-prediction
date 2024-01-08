@@ -1,45 +1,39 @@
-/* Reset some default styles */
+
 body, h1, h2, h3, p, ul, li {
     margin: 0;
     padding: 0;
 }
 body {
     background-image: url("https://d2jx2rerrg6sh3.cloudfront.net/images/Article_Images/ImageForArticle_22744_16565132428524067.jpg");
-    background-size: cover; /* Adjust the image size to cover the entire background */
-    background-repeat: no-repeat; /* Prevent image repetition */
-    background-attachment: fixed; /* Fixed background so it doesn't scroll with content */
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
   }
-/* Apply a font family and basic styles to the entire document */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
 }
 
-/* Style for the container */
 .container {
     display: flex;
     justify-content: space-between;
     margin: 20px;
 }
 
-/* Style for the left column */
 .left-column {
-    flex: 30%; /* Adjusted to 30% */
+    flex: 30%;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     margin-right: 20px;
 }
-
-/* Style for the heading in the left column */
 .left-column h2 {
     font-size: 24px;
     color: #333;
     margin-bottom: 10px;
 }
 
-/* Style for the input fields in the left column */
 .left-column input[type="number"] {
     width: 40%;
     padding: 8px;
@@ -48,7 +42,7 @@ body {
     border-radius: 3px;
 }
 
-/* Style for the "Predict" button in the left column */
+
 .left-column input[type="submit"] {
     background-color: #007bff;
     color: #fff;
@@ -71,12 +65,12 @@ body {
 .left-column input[type="button"]:hover {
     background-color: #0056b3;
 }
-/* Style for the "Choose File" button */
+
 input[type="file"] {
-    color: #0056b3; /* Change the text color */
-    font-size: 16px; /* Increase the font size */
-    font-family: Arial, sans-serif; /* Change the font family */
-    padding: 5px; /* Add some padding */
+    color: #0056b3; 
+    font-size: 16px; 
+    font-family: Arial, sans-serif;
+    padding: 5px; 
 }
 
 input[type="file"]::file-selector-button {
@@ -93,31 +87,29 @@ input[type="file"]::file-selector-button:hover {
     background-color: #c2c5c2;
 }
 
-/* Style for the OR heading */
 .left-column h2.or {
     font-size: 18px;
     text-align: center;
     margin: 20px 0;
 }
 
-/* Style for the input-number section */
+
 .input-number {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     padding: 20px;
     margin: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: auto; /* Adjusted to 100% */
+    width: auto; 
 }
 
-/* Style for the heading in the input-number section */
 .input-number h2 {
     font-size: 24px;
     color: #333;
     margin-bottom: 10px;
 }
 
-/* Style for the number input fields */
+
 .input-number input[type="number"] {
     width: 70%;
     padding: 8px;
@@ -126,7 +118,7 @@ input[type="file"]::file-selector-button:hover {
     border-radius: 3px;
 }
 
-/* Style for the "Predict" button in the input-number section */
+
 .input-number input[type="submit"] {
     background-color: #007bff;
     color: #fff;
@@ -140,7 +132,7 @@ input[type="file"]::file-selector-button:hover {
     background-color: #0056b3;
 }
 
-/* Style for the CSV import section */
+
 .csv-import {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
@@ -150,14 +142,13 @@ input[type="file"]::file-selector-button:hover {
     width: auto; 
 }
 
-/* Style for the heading in the CSV import section */
+
 .csv-import h2 {
     font-size: 24px;
     color: #333;
     margin-bottom: 10px;
 }
 
-/* Style for the file input field in the CSV import section */
 .csv-import input[type="file"] {
     padding: 8px;
     margin-bottom: 15px;
@@ -165,7 +156,6 @@ input[type="file"]::file-selector-button:hover {
     border-radius: 3px;
 }
 
-/* Style for the "Upload CSV" button in the CSV import section */
 .csv-import input[type="submit"] {
     background-color: #007bff;
     color: #fff;
@@ -179,13 +169,11 @@ input[type="file"]::file-selector-button:hover {
     background-color: #0056b3;
 }
 
-/* Style for the "Remove CSV File" icon in the CSV import section */
 .csv-import i.fas.fa-times {
     color: red;
     cursor: pointer;
 }
 
-/* Style for the right column */
 .right-column {
     flex: 130%; 
     background-color: rgba(255, 255, 255, 0.9);
