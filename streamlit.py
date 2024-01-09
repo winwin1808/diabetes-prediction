@@ -27,6 +27,9 @@ age = st.sidebar.number_input("Age", 21, 81, 29)
 # Create a "Predict" button
 predict_button = st.sidebar.button("Predict")
 
+# Initialize a state variable to track prediction status
+prediction_made = False
+
 # Check if the "Predict" button is clicked
 if predict_button:
     # Create a DataFrame from user input
@@ -53,3 +56,10 @@ if predict_button:
     else:
         st.write("The model predicts that the person does not have diabetes.")
         st.write(f"Probability of not having diabetes: {1 - prediction_proba[0]:.2f}")
+
+    # Update prediction status to True
+    prediction_made = True
+
+# Reset the prediction status if needed
+if not predict_button:
+    prediction_made = False
