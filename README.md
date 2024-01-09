@@ -24,10 +24,19 @@ git@github.com:winwin1808/diabetes-prediction.git
 1. **Start the Flask Server**
 This will start the web application on your local server.
 
-2. **Access the Web Application**
+2. **Navigate to the Project Directory**
+
+cd diabetes-prediction
+
+3. **Install Required Packages**
+
+pip install -r requirements.txt
+
+
+4. **Access the Web Application**
 Navigate to `http://127.0.0.1:5000/` in your web browser.
 
-3. **Using the Application**
+5. **Using the Application**
 - Input the patient's health data or upload a CSV file for prediction.
 - Submit the data to receive the model's prediction.
 
