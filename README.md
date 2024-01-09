@@ -1,3 +1,6 @@
+Sample: [Click here to access the link](http://172.16.5.32:8502/)
+
+
 # Diabetes Prediction Using LSTM
 
 ## Overview
