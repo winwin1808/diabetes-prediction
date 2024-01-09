@@ -1,4 +1,6 @@
-Sample: [Click here to access the link](http://172.16.5.32:8502/)
+Input number only: [Click here to access the link](http://172.16.5.32:8502/)
+
+Input number and import CSV file: [Click here to access the link](https://7bee-113-160-224-43.ngrok-free.app/)
 
 
 # Diabetes Prediction Using LSTM
