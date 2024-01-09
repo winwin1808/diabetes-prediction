@@ -20,8 +20,11 @@ class ComplexDiabetesLSTM(nn.Module):
     def forward(self, input_seq):
         lstm_out, _ = self.lstm(input_seq)
         lstm_out = lstm_out[:, -1, :]  # Take the output of the last time step
+        layer_2 = self.linear1(lstm_out)
+        layer_3 = self.relu(layer_2)
 
-        out = self.dropout(self.relu(self.linear1(lstm_out)))
-        predictions = torch.sigmoid(self.linear2(out))
+        out = self.dropout(layer_3)
+        layer_4 = self.linear2(out)
+        predictions = torch.sigmoid(layer_4)
 
         return predictions
