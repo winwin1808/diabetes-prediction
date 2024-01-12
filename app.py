@@ -69,7 +69,11 @@ def predict_csv():
             predictions = model(input_tensor.unsqueeze(1))  # Adjust shape as needed
             predicted_classes = predictions.round().numpy().tolist()
 
-        return jsonify({'predictions': predicted_classes})
+        # Append predictions to the original DataFrame
+        df['Predicted_Class'] = predicted_classes  # Assuming 'Predicted_Class' is the column name for predictions
+
+        # Return the combined DataFrame as JSON
+        return jsonify({'predictions': df.to_dict(orient='records')})
 
     else:
         return jsonify({'error': 'Invalid file format. Only CSV files are accepted.'})

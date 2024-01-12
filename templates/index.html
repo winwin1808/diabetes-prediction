@@ -84,6 +84,7 @@
       </div>
       <div class="right-column">
         <div id="predictionResult"></div>
+        <div id="dataframe-container"></div>
         <div id="CSVpredictionResult"></div>
         <button id="copyButton" style="display: none">Copy</button>
       </div>
@@ -150,23 +151,45 @@
                 return acc.concat(val);
               },
               []);
-              var formattedText = flattenedPredictions.join("\n"); // Use tab as separator
 
+              var columnHeaderClass = "column-header"; // Class for table header cells
+              var columnDataClass = "column-data"; // Class for table data cells
+
+              // Display the DataFrame in a table
+              var tableHtml = "<table style='width: 100%;'>";
+              tableHtml += "<tr>";
+
+              for (var key in flattenedPredictions[0]) {
+                // Add CSS classes to table header cells
+                tableHtml +=
+                  "<th class='" + columnHeaderClass + "'>" + key + "</th>";
+              }
+
+              tableHtml += "</tr>";
+
+              for (var i = 0; i < flattenedPredictions.length; i++) {
+                tableHtml += "<tr>";
+
+                for (var key in flattenedPredictions[i]) {
+                  // Add CSS classes to table data cells
+                  tableHtml +=
+                    "<td class='" +
+                    columnDataClass +
+                    "'>" +
+                    flattenedPredictions[i][key] +
+                    "</td>";
+                }
+
+                tableHtml += "</tr>";
+              }
+
+              tableHtml += "</table>";
+
+              // Update the content of the placeholder div
+              document.getElementById("dataframe-container").innerHTML = tableHtml;
+
+              // Show the "Copy" button
               document.getElementById("copyButton").style.display = "block";
-              document
-                .getElementById("copyButton")
-                .addEventListener("click", function () {
-                  navigator.clipboard.writeText(formattedText).then(
-                    function () {
-                      console.log("Copying to clipboard was successful!");
-                    },
-                    function (err) {
-                      console.error("Could not copy text: ", err);
-                    }
-                  );
-                });
-              document.getElementById("CSVpredictionResult").innerHTML =
-                "Predictions: <br>" + JSON.stringify(data.predictions);
             }
           })
           .catch((error) => {
@@ -174,6 +197,10 @@
               "Error: " + error;
           });
       };
+      // Define CSS classes for table cells with padding
+
+      // Show the "Copy" button
+      document.getElementById("copyButton").style.display = "block";
     </script>
   </body>
 </html>
